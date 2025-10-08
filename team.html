@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aarohana Foundation | Regd. under Govt. Of Karnataka </title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-top: 30px;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: #2d3748;
+      margin-bottom: 15px;
+    }
+
+    .section-title h3 {
+      font-size: 2rem;
+      color: #2d3748;
+      margin-bottom: 15px;
+    }
+
+    .section-title p {
+      font-size: 1.1rem;
+      color: #718096;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Team Section Styles */
+    .team-section {
+      padding: 40px 0 60px;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 12px;
+      margin: 30px 20px;
+    }
+
+    .team-intro {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 50px;
+      font-size: 1.1rem;
+      color: #4a5568;
+      line-height: 1.6;
+    }
+
+    /* Executive Committee */
+    .executive-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+
+    .team-member {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      text-align: center;
+      width: 280px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .team-member:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .member-image {
+      width: 100%;
+      height: 250px;
+      position: relative;
+      overflow: hidden;
+      background: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .member-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.3s ease;
+      mix-blend-mode: multiply;
+      filter: contrast(1.1);
+    }
+
+    .team-member:hover .member-image img {
+      transform: scale(1.05);
+    }
+
+    .member-info {
+      padding: 20px;
+      background: white;
+      border-radius: 0 0 12px 12px;
+    }
+
+    .member-name {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #2d3748;
+    }
+
+    .member-role {
+      color: #4a6bdf;
+      font-weight: 600;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .member-bio {
+      color: #718096;
+      margin-bottom: 15px;
+      font-size: 10px;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: scroll;
+
+      /* Hide scrollbar */
+      scrollbar-width: none;
+      /* Firefox */
+      -ms-overflow-style: none;
+      /* Internet Explorer and Edge */
+    }
+
+    .member-bio::-webkit-scrollbar {
+      display: none;
+      /* Chrome, Safari, and Opera */
+    }
+
+
+    .member-social {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #edf2f7;
+      color: #4a5568;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .social-link:hover {
+      background: #4a6bdf;
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    /* Team Category Headings */
+    .team-category {
+      text-align: center;
+      margin: 50px 0 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #363632bf;
+    }
+
+    .team-category h4 {
+      font-size: 1.8rem;
+      color: #363632bf;
+      margin: 0;
+    }
+
+    /* Team with Horizontal Members */
+    .team-with-members {
+      margin-bottom: 60px;
+    }
+
+    .team-leader {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    /* FIX: Team leader should have same dimensions as team members, not executives */
+    .team-leader .team-member {
+      width: 220px;
+      /* Same as team members */
+    }
+
+    .team-leader .member-image {
+      height: 200px;
+      /* Same as team members */
+    }
+
+    .team-members-horizontal {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+    }
+
+    .team-members-horizontal .team-member {
+      width: 220px;
+    }
+
+    .team-members-horizontal .member-image {
+      height: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><img src="assets/images/logo/Aarohana logo.png" alt=""
+            style="width: 93px;margin-right: 10px;"></div>
+        <div class="logo-text">
+          <h1>Aarohana Foundation</h1>
+          <span>Regd. under Govt. Of Karnataka</span>
+        </div>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <!-- About Us with dropdown -->
+          <li class="dropdown">
+            <a href="about.html" class="dropdown-toggle">About Us <i class="fas fa-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="about.html#vision-mission">Vision</a></li>
+              <li><a href="about.html#vision-mission">Mission</a></li>
+              <li class="dropdown-submenu">
+                <a href="about.html#registration">Registration Details</a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Our Team with dropdown -->
+          <li class="dropdown">
+            <a href="#team" class="dropdown-toggle">Our Team <i class="fas fa-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="#executive">Executive Committee</a></li>
+              <li><a href="#members">Our Members</a></li>
+            </ul>
+          </li>
+
+          <!-- Other navigation items -->
+          <li><a href="project.html">Projects</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact us</a></li>
+          <li class="dropdown">
+            <a href="#join" class="dropdown-toggle">Join us <i class="fas fa-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="join.html#internship">Internship</a></li>
+              <li><a href="join.html#membership">Our Members</a></li>
+              <li><a href="join.html#partnership">Partnership</a></li>
+              <li><a href="join.html#newsletter">Newsletter</a></li>
+            </ul>
+          </li>
+          <li><a href="#donate" class="nav-cta">Donate Now</a></li>
+        </ul>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+      </nav>
+    </div>
+  </header>
+
+
+
+
+
+  <section class="team-section" id="team">
+    <div class="container">
+      <div class="section-title">
+        <h2>Meet Our Team</h2>
+        <p>The passionate individuals driving our mission forward</p>
+      </div>
+
+      <div class="team-intro">
+        <p>Our team brings together diverse expertise, innovative ideas, and a shared commitment to creating lasting
+          social impact. We are united by the same goal: to empower communities and build a better future.</p>
+      </div>
+
+      <!-- Executive Committee Section -->
+      <div class="section-title">
+        <h3>Executive Committee</h3>
+        <p>The leadership team guiding our organization</p>
+      </div>
+
+      <div class="executive-grid">
+        <div class="team-member">
+          <div class="member-image">
+            <img src="assets/images/team/Mohammad Rayeed Zain.jpg" alt="Mohammed Rayeed Zain C A">
+          </div>
+          <div class="member-info">
+            <h3 class="member-name">Mohammed Rayeed Zain C A</h3>
+            <div class="member-role">Founder</div>
+            <p class="member-bio">Meet Mohammed Rayeed Zain, A graduate from St. Joseph's College of Commerce. His
+              mission is simple yet powerful, to bring people together and extend a helping hand to those in need. In
+              these times, when the threads of community often feel frayed, he aims to weave them back together through
+              acts of kindness, support, and collaboration.</p>
+            <div class="member-social">
+              <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-member">
+          <div class="member-image">
+            <img src="assets/images/team/Ankith.jpg" alt="Ankith Pawal Kujur">
+          </div>
+          <div class="member-info">
+            <h3 class="member-name">Ankith Pawal Kujur</h3>
+            <div class="member-role">Co-Founder</div>
+            <p class="member-bio">Introducing Ankith, a graduate from St. Joseph's College of Commerce. He is deeply
+              inspired by the words of Chris Grosser "Opportunities do not happen. We need to create them.” Ankith is
+              committed to fostering unity, empowerment, and positive change. His passion lies in bringing people
+              together to address local challenges, promote inclusivity, and enhance our collective well-being.</p>
+            <div class="member-social">
+              <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-member">
+          <div class="member-image">
+            <img src="assets/images/team/Eman.PNG" alt="Eman Syed">
+          </div>
+          <div class="member-info">
+            <h3 class="member-name">Eman Syed</h3>
+            <div class="member-role">General Secretary</div>
+            <p class="member-bio">Inspired by Rumi's words, 'Let the beauty of what you love be what you do.' Eman is a
+              Public Policy and Governance student at Mount Carmel College, Autonomous, who is passionate about bridging
+              societal divides and empowering communities through policy. She believes in creating impact, fostering
+              hope, and driving change. With valuable experience in NGOs, Societies and Media Organisations, she aims to
+              leverage her knowledge and skills to contribute meaningfully and serve with purpose.</p>
+            <div class="member-social">
+              <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-member">
+          <div class="member-image">
+            <img src="assets/images/team/SriHari.JPG" alt="Shrihari Srinivas">
+          </div>
+          <div class="member-info">
+            <h3 class="member-name">Shrihari Srinivas</h3>
+            <div class="member-role">Joint Secretary</div>
+            <p class="member-bio">Meet Shrihari, a 2nd year student at St. Joseph’s College of Commerce. Excited to
+              begin his journey with Aarohana Foundation he believes that being part of a cause-driven organization is
+              both a valuable learning opportunity and a chance to contribute meaningfully to society. He looks
+              forward
+              to growing alongside the team and working towards making a positive impact.
+            </p>
+            <div class="member-social">
+              <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-member">
+          <div class="member-image">
+            <img src="assets/images/team/Nimisha Maria.jpg" alt="Nimisha Maria">
+          </div>
+          <div class="member-info">
+            <h3 class="member-name">Nimisha Maria</h3>
+            <div class="member-role">Treasurer</div>
+            <p class="member-bio">As Treasurer and Head of Public Engagement at Arohana Foundation, Nimisha combines
+              financial discipline with a passion for connecting people. With past experience leading relief efforts at
+              an NGO and a deep love for community service, she is committed to driving Arohana’s mission forward
+              through transparency, teamwork, and meaningful outreach.</p>
+            <div class="member-social">
+              <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="team-member">
+          <div class="member-image">
+            <img src="assets/images/team/Keno.jpg" alt="J K Keno">
+          </div>
+          <div class="member-info">
+            <h3 class="member-name">J K Keno</h3>
+            <div class="member-role">Executive Member</div>
+            <p class="member-bio">Meet Keno, a 3rd-year student at St. Joseph’s College of Commerce proud to be stepping
+              in as an Executive Member at Aarohana Foundation. From data crunching to getting hands dirty on the field,
+              he loves being at the frontline—whether it's planning, organizing, or simply making a difference. He
+              believes in growing, giving, and going beyond and is excited to collaborate, learn, and make Aarohana soar
+              even higher.</p>
+            <div class="member-social">
+              <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="team-member">
+          <div class="member-image">
+            <img src="assets/images/team/Andrew Joannes.jpg" alt="Andrew Joannes">
+
+          </div>
+          <div class="member-info">
+            <h3 class="member-name">Andrew Joannes</h3>
+            <div class="member-role">Treasurer</div>
+            <p class="member-bio">Meet Andrew Joannes, A passionate Photographer, Videographer, Editor, and Graphic
+              Designer. With an eye for detail and a love for storytelling, he transforms ideas into visually compelling
+              content that captivates and engages. He’s the kind of creative who shows up on time because inspiration
+              waits for no one, and neither do deadlines.</p>
+            <div class="member-social">
+              <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sponsorship Team -->
+      <div class="team-with-members">
+        <div class="team-category">
+          <h4>Sponsorship Team</h4>
+        </div>
+
+        <div class="team-leader">
+          <div class="team-member">
+            <div class="member-image">
+              <img
+                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHBvcnRyYWl0fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=80"
+                alt="Aisha Khan">
+            </div>
+            <div class="member-info">
+              <h3 class="member-name">Aisha Khan</h3>
+
+              <!-- <div class="member-social">
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="team-members-horizontal">
+          <div class="team-member">
+            <div class="member-image">
+              <img
+                src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                alt="Rohan Mehta">
+            </div>
+            <div class="member-info">
+              <h3 class="member-name">Rohan Mehta</h3>
+            </div>
+          </div>
+
+          <div class="team-member">
+            <div class="member-image">
+              <img
+                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                alt="Sanjana Reddy">
+            </div>
+            <div class="member-info">
+              <h3 class="member-name">Sanjana Reddy</h3>
+            </div>
+          </div>
+
+          <div class="team-member">
+            <div class="member-image">
+              <img
+                src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                alt="Rahul Verma">
+            </div>
+            <div class="member-info">
+              <h3 class="member-name">Rahul Verma</h3>
+            </div>
+          </div>
+
+          <div class="team-member">
+            <div class="member-image">
+              <img
+                src="https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHBvcnRyYWl0fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=80"
+                alt="Anjali Mehta">
+            </div>
+            <div class="member-info">
+              <h3 class="member-name">Anjali Mehta</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Public Relations Team -->
+      <div class="team-with-members">
+        <div class="team-category">
+          <h4>Public Relations Team</h4>
+        </div>
+
+        <div class="team-leader">
+          <div class="team-member">
+            <div class="member-image">
+              <img
+                src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHBvcnRyYWl0fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=80"
+                alt="Vikram Malhotra">
+            </div>
+            <div class="member-info">
+              <h3 class="member-name">Vikram Malhotra</h3>
+
+              <!-- <div class="member-social">
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="team-members-horizontal">
+          <div class="team-member">
+            <div class="member-image">
+              <img
+                src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHBvcnRyYWl0fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=80"
+                alt="Meera Desai">
+            </div>
+            <div class="member-info">
+              <h3 class="member-name">Meera Desai</h3>
+            </div>
+          </div>
+
+          <div class="team-member">
+            <div class="member-image">
+              <img
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                alt="Sneha Gupta">
+            </div>
+            <div class="member-info">
+              <h3 class="member-name">Sneha Gupta</h3>
+            </div>
+          </div>
+
+          <div class="team-member">
+            <div class="member-image">
+              <img
+                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=80"
+                alt="Karan Joshi">
+            </div>
+            <div class="member-info">
+              <h3 class="member-name">Karan Joshi</h3>
+            </div>
+          </div>
+
+          <div class="team-member">
+            <div class="member-image">
+              <img
+                src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fHBvcnRyYWl0fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=80"
+                alt="Priya Patel">
+            </div>
+            <div class="member-info">
+              <h3 class="member-name">Priya Patel</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h4>About Aarohana</h4>
+          <p>A youth-led organization dedicated to coordinating and delivering comprehensive charitable support across
+            our community.</p>
+          <p>Registered under the Karnataka Societies Registration Act, 1960</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="#team">Our Team</a></li>
+            <li><a href="#mission">Projects</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact us</a></li>
+            <li><a href="#volunteer">Join us</a></li>
+            <li><a href="#donate">Donate Now</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Our Initiatives</h4>
+          <ul class="footer-links">
+            <li><a href="#">Education for Underprivileged</a></li>
+            <li><a href="#">Emergency Medical Funding</a></li>
+            <li><a href="#">Disaster Relief & Response</a></li>
+            <li><a href="#">Environmental Initiatives</a></li>
+            <li><a href="#">Civic Engagement Projects</a></li>
+            <li><a href="#">The Bengaluru Pothole Project</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col footer-newsletter">
+          <h4>Newsletter</h4>
+          <p>Subscribe to our newsletter to stay updated with our activities and impact stories.</p>
+
+          <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Your Email" required>
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="copyright">
+      <div class="container">
+        <p>&copy; 2025 Aarohana Foundation. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Handle navigation from dropdown menu
+    document.addEventListener('DOMContentLoaded', function () {
+      // Check if URL has hash and scroll to section
+      if (window.location.hash) {
+        setTimeout(function () {
+          const target = document.querySelector(window.location.hash);
+          if (target) {
+            window.scrollTo({
+              top: target.offsetTop - 100,
+              behavior: 'smooth'
+            });
+          }
+        }, 100);
+      }
+
+      // Update dropdown links to point to correct page with hash
+      const executiveLink = document.querySelector('a[href="team.html#executive"]');
+      const membersLink = document.querySelector('a[href="team.html#members"]');
+
+      if (executiveLink && window.location.pathname.endsWith('team.html')) {
+        executiveLink.setAttribute('href', '#executive');
+      }
+
+      if (membersLink && window.location.pathname.endsWith('team.html')) {
+        membersLink.setAttribute('href', '#members');
+      }
+    });
+
+    // Handle navigation from dropdown menu
+    document.addEventListener('DOMContentLoaded', function () {
+      // Check if URL has hash and scroll to section
+      if (window.location.hash) {
+        setTimeout(function () {
+          const target = document.querySelector(window.location.hash);
+          if (target) {
+            window.scrollTo({
+              top: target.offsetTop - 100,
+              behavior: 'smooth'
+            });
+          }
+        }, 100);
+      }
+    });
+  </script>
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>
