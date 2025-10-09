@@ -4,201 +4,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aarohana Foundation | Rise Support Transform</title>
+  <title>Aarohana Foundation | Rise Support Transform</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
-<style>
+  <style>
     /* Gallery Section Styles */
-    .gallery-section {
-      padding: 100px 0;
-      background: var(--white);
-    }
+    .gallery-section { padding: 100px 0; background: var(--white); }
+    .gallery-filter { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 40px; }
+    .filter-btn { padding: 10px 20px; background: var(--gray-100); border: none; border-radius: 50px; font-family: 'Inter', sans-serif; font-weight: 500; cursor: pointer; transition: var(--transition); }
+    .filter-btn:hover, .filter-btn.active { background: var(--primary); color: var(--secondary); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-bottom: 50px; }
+    .gallery-item { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); transition: var(--transition); height: 280px; }
+    .gallery-item:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .gallery-img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+    .gallery-item:hover .gallery-img { transform: scale(1.05); }
+    .gallery-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); padding: 20px; color: var(--white); opacity: 0; transition: var(--transition); }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-title { font-weight: 600; margin-bottom: 8px; font-size: 1.1rem;color:white }
+    .gallery-category { font-size: 0.85rem; opacity: 0.9; display: inline-block; background: var(--primary); color: var(--secondary); padding: 4px 10px; border-radius: 4px; font-weight: 500; }
 
-    .gallery-filter {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-bottom: 40px;
-    }
+    .gallery-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1100; overflow: auto; opacity: 0; transition: opacity 0.3s ease; }
+    .gallery-modal.active { display: block; opacity: 1; }
+    .modal-content { position: relative; max-width: 900px; margin: 60px auto; background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg); }
+    .modal-img { width: 100%; max-height: 70vh; object-fit: contain; }
+    .modal-body { padding: 25px; }
+    .modal-title { font-size: 1.5rem; margin-bottom: 10px; }
+    .modal-description { color: var(--text-light); margin-bottom: 20px; }
+    .modal-close { position: absolute; top: 15px; right: 15px; background: var(--white); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; transition: var(--transition); }
+    .modal-close:hover { background: var(--primary); }
 
-    .filter-btn {
-      padding: 10px 20px;
-      background: var(--gray-100);
-      border: none;
-      border-radius: 50px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .filter-btn:hover, .filter-btn.active {
-      background: var(--primary);
-      color: var(--secondary);
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 25px;
-      margin-bottom: 50px;
-    }
-
-    .gallery-item {
-      position: relative;
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow-md);
-      transition: var(--transition);
-      height: 280px;
-    }
-
-    .gallery-item:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .gallery-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: var(--transition);
-    }
-
-    .gallery-item:hover .gallery-img {
-      transform: scale(1.05);
-    }
-
-    .gallery-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-      padding: 20px;
-      color: var(--white);
-      opacity: 0;
-      transition: var(--transition);
-    }
-
-    .gallery-item:hover .gallery-overlay {
-      opacity: 1;
-    }
-
-    .gallery-title {
-      font-weight: 600;
-      margin-bottom: 8px;
-      font-size: 1.1rem;
-    }
-
-    .gallery-category {
-      font-size: 0.85rem;
-      opacity: 0.9;
-      display: inline-block;
-      background: var(--primary);
-      color: var(--secondary);
-      padding: 4px 10px;
-      border-radius: 4px;
-      font-weight: 500;
-    }
-
-    .gallery-cta {
-      text-align: center;
-    }
-
-    /* Modal Styles */
-    .gallery-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.9);
-      z-index: 1100;
-      overflow: auto;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .gallery-modal.active {
-      display: block;
-      opacity: 1;
-    }
-
-    .modal-content {
-      position: relative;
-      max-width: 900px;
-      margin: 60px auto;
-      background: var(--white);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow-lg);
-    }
-
-    .modal-img {
-      width: 100%;
-      max-height: 70vh;
-      object-fit: contain;
-    }
-
-    .modal-body {
-      padding: 25px;
-    }
-
-    .modal-title {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-    }
-
-    .modal-description {
-      color: var(--text-light);
-      margin-bottom: 20px;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: var(--white);
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 1.2rem;
-      transition: var(--transition);
-    }
-
-    .modal-close:hover {
-      background: var(--primary);
-    }
-
-    /* Responsive adjustments */
     @media (max-width: 768px) {
-      .gallery-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 15px;
-      }
-      
-      .gallery-item {
-        height: 220px;
-      }
+      .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
+      .gallery-item { height: 220px; }
     }
-
     @media (max-width: 576px) {
-      .gallery-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .filter-btn {
-        padding: 8px 16px;
-        font-size: 0.9rem;
-      }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .filter-btn { padding: 8px 16px; font-size: 0.9rem; }
     }
   </style>
 </head>
@@ -209,26 +51,18 @@
     <div class="header-container">
       <a href="index.html" class="logo">
         <div class="logo-icon"><img src="assets/images/logo/Aarohana logo.png" alt="" style="width: 93px;margin-right: 10px;"></div>
-        <div class="logo-text">
-          <h1>Aarohana Foundation</h1>
-          <span>Rise Support Transform</span>
-        </div>
+        <div class="logo-text"><h1>Aarohana Foundation</h1><span>Rise Support Transform</span></div>
       </a>
       <nav>
         <ul class="nav-links">
-          <!-- About Us with dropdown -->
           <li class="dropdown">
             <a href="about.html" class="dropdown-toggle">About Us <i class="fas fa-chevron-down"></i></a>
             <ul class="dropdown-menu">
               <li><a href="about.html#vision-mission">Vision</a></li>
               <li><a href="about.html#vision-mission">Mission</a></li>
-              <li class="dropdown-submenu">
-                <a href="about.html#initiatives">Key Initiatives</a>
-              </li>
+              <li class="dropdown-submenu"><a href="about.html#initiatives">Key Initiatives</a></li>
             </ul>
           </li>
-          
-          <!-- Our Team with dropdown -->
           <li class="dropdown">
             <a href="#team" class="dropdown-toggle">Our Team <i class="fas fa-chevron-down"></i></a>
             <ul class="dropdown-menu">
@@ -236,20 +70,18 @@
               <li><a href="team.html#members">Our Members</a></li>
             </ul>
           </li>
-          
-          <!-- Other navigation items -->
           <li><a href="project.html">Projects</a></li>
           <li><a href="gallery.html">Gallery</a></li>
           <li><a href="contact.html">Contact us</a></li>
-        <li class="dropdown">
-                        <a href="#join" class="dropdown-toggle">Join us <i class="fas fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="join.html#internship">Internship</a></li>
-                            <li><a href="join.html#membership">Our Members</a></li>
-                            <li><a href="join.html#partnership">Partnership</a></li>
-                            <li><a href="join.html#newsletter">Newsletter</a></li>
-                        </ul>
-                    </li>
+          <li class="dropdown">
+            <a href="#join" class="dropdown-toggle">Join us <i class="fas fa-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="join.html#internship">Internship</a></li>
+              <li><a href="join.html#membership">Our Members</a></li>
+              <li><a href="join.html#partnership">Partnership</a></li>
+              <li><a href="join.html#newsletter">Newsletter</a></li>
+            </ul>
+          </li>
           <li><a href="#donate" class="nav-cta">Donate Now</a></li>
         </ul>
         <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
@@ -260,103 +92,74 @@
   <!-- Gallery Section -->
   <section class="gallery-section">
     <div class="container">
-      <div class="section-title">
-        <h2>Our Gallery</h2>
-        <p>Capturing moments of impact and transformation</p>
-      </div>
+      <div class="section-title"><h2>Our Gallery</h2><p>Capturing moments of impact and transformation</p></div>
 
+      <!-- Filters -->
       <div class="gallery-filter">
         <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="education">Education</button>
-        <button class="filter-btn" data-filter="healthcare">Healthcare</button>
-        <button class="filter-btn" data-filter="environment">Environment</button>
-        <button class="filter-btn" data-filter="community">Community</button>
-        <button class="filter-btn" data-filter="events">Events</button>
+        <button class="filter-btn" data-filter="food">Food & Blanket Donation Drive</button>
+        <button class="filter-btn" data-filter="green">Green Day</button>
+        <button class="filter-btn" data-filter="planet">Planet Preneurs</button>
+        <button class="filter-btn" data-filter="road">ReRoad Bengaluru</button>
+        <button class="filter-btn" data-filter="seeds">Seeds of Service - A Stationery distribution drive</button>
       </div>
 
       <div class="gallery-grid">
-        <!-- Education -->
-        <div class="gallery-item" data-category="education">
-          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Education Workshop" class="gallery-img">
-          <div class="gallery-overlay">
-            <h3 class="gallery-title">Education Workshop</h3>
-            <span class="gallery-category">Education</span>
-          </div>
-        </div>
+        <!-- Food & Blanket (7 images) -->
+        <div class="gallery-item" data-category="food"><img src="https://drive.google.com/thumbnail?id=1ENjsF5olCdPHXFX3pWZ8a1_9nNKcPwTX&sz=w1000-h1000" alt="Food & Blanket 1" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Food & Blanket Donation Drive</h3><span class="gallery-category">Food & Blanket Donation Drive</span></div></div>
+        <div class="gallery-item" data-category="food"><img src="https://drive.google.com/thumbnail?id=1krEux7D3p552AMp78xPQ0dDtAqMPTbY0&sz=w1000-h1000" alt="Food & Blanket 2" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Food & Blanket Donation Drive</h3><span class="gallery-category">Food & Blanket</span></div></div>
+        <div class="gallery-item" data-category="food"><img src="https://drive.google.com/thumbnail?id=1MRMS1DqpUS1we15aUfHg8X12-30cEJZS&sz=w1000-h1000" alt="Food & Blanket 3" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Food & Blanket Donation Drive</h3><span class="gallery-category">Food & Blanket</span></div></div>
+        <div class="gallery-item" data-category="food"><img src="https://drive.google.com/thumbnail?id=1Ug0NqSplth0A4zKdpIvGNXdFYRGYgR0N&sz=w1000-h1000" alt="Food & Blanket 4" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Food & Blanket Donation Drive</h3><span class="gallery-category">Food & Blanket</span></div></div>
+        <div class="gallery-item" data-category="food"><img src="https://drive.google.com/thumbnail?id=1qhXekuiwk05FlpKWBnviScGJfEzdNsG0&sz=w1000-h1000" alt="Food & Blanket 5" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Food & Blanket Donation Drive</h3><span class="gallery-category">Food & Blanket</span></div></div>
+        <div class="gallery-item" data-category="food"><img src="https://drive.google.com/thumbnail?id=1LG4xMA8L9huXv9Pm53fswjAkpfRWIp3h&sz=w1000-h1000" alt="Food & Blanket 6" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Food & Blanket Donation Drive</h3><span class="gallery-category">Food & Blanket</span></div></div>
+        <div class="gallery-item" data-category="food"><img src="https://drive.google.com/thumbnail?id=167n0BUrltM4kn7Ud1TiF1fLgKk6H187a&sz=w1000-h1000" alt="Food & Blanket 7" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Food & Blanket Donation Drive</h3><span class="gallery-category">Food & Blanket</span></div></div>
 
-        <!-- Healthcare -->
-        <div class="gallery-item" data-category="healthcare">
-          <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Medical Camp" class="gallery-img">
-          <div class="gallery-overlay">
-            <h3 class="gallery-title">Medical Camp</h3>
-            <span class="gallery-category">Healthcare</span>
-          </div>
-        </div>
+        <!-- Green Day (10 images) -->
+        <div class="gallery-item" data-category="green"><img src="https://drive.google.com/thumbnail?id=1ki4zLEohAe4dK5FVi0sfVv-vtkxUbKGF&sz=w1000-h1000" alt="Green Day 1" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Green Day</h3><span class="gallery-category">Green Day</span></div></div>
+        <div class="gallery-item" data-category="green"><img src="https://drive.google.com/thumbnail?id=1VldaR3OQX5INJE9iSsHkmCEaKfGc5YHV&sz=w1000-h1000" alt="Green Day 2" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Green Day</h3><span class="gallery-category">Green Day</span></div></div>
+        <div class="gallery-item" data-category="green"><img src="https://drive.google.com/thumbnail?id=1LizMNVA4QadQ623JEZtX0sYxAF2Lvehi&sz=w1000-h1000" alt="Green Day 3" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Green Day</h3><span class="gallery-category">Green Day</span></div></div>
+        <div class="gallery-item" data-category="green"><img src="https://drive.google.com/thumbnail?id=1VMVhsruBrKOBA51sCiUDI-Y2y4a6VTnH&sz=w1000-h1000" alt="Green Day 4" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Green Day</h3><span class="gallery-category">Green Day</span></div></div>
+        <div class="gallery-item" data-category="green"><img src="https://drive.google.com/thumbnail?id=1gO-RTewgp6U4dVMuvP0z2pU4v79T65Qy&sz=w1000-h1000" alt="Green Day 5" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Green Day</h3><span class="gallery-category">Green Day</span></div></div>
+        <div class="gallery-item" data-category="green"><img src="https://drive.google.com/thumbnail?id=1gO-RTewgp6U4dVMuvP0z2pU4v79T65Qy&sz=w1000-h1000" alt="Green Day 6" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Green Day</h3><span class="gallery-category">Green Day</span></div></div>
+        <div class="gallery-item" data-category="green"><img src="https://drive.google.com/thumbnail?id=1TJUbB7Lw9XXBOUIXWtgZGvIYeCDlAtgP&sz=w1000-h1000" alt="Green Day 7" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Green Day</h3><span class="gallery-category">Green Day</span></div></div>
+        <div class="gallery-item" data-category="green"><img src="https://drive.google.com/thumbnail?id=1wuyv-VYipDhwJFKEFitWnGfp64Pe6oo1&sz=w1000-h1000" alt="Green Day 8" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Green Day</h3><span class="gallery-category">Green Day</span></div></div>
+        <div class="gallery-item" data-category="green"><img src="https://drive.google.com/thumbnail?id=1DnV_VxcKYd-19xCUcEKRRGMEY2Pjr9Wb&sz=w1000-h1000" alt="Green Day 9" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Green Day</h3><span class="gallery-category">Green Day</span></div></div>
+        <div class="gallery-item" data-category="green"><img src="https://drive.google.com/thumbnail?id=1O6vsB8Ax2vRkHv3_iox9ADLUdugxBinu&sz=w1000-h1000" alt="Green Day 10" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Green Day</h3><span class="gallery-category">Green Day</span></div></div>
 
-        <!-- Environment -->
-        <div class="gallery-item" data-category="environment">
-          <img src="https://images.unsplash.com/photo-1573455494060-c5595004fb6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tree Plantation" class="gallery-img">
-          <div class="gallery-overlay">
-            <h3 class="gallery-title">Tree Plantation Drive</h3>
-            <span class="gallery-category">Environment</span>
-          </div>
-        </div>
+        <!-- Planet (7 images) -->
+        <div class="gallery-item" data-category="planet"><img src="https://drive.google.com/thumbnail?id=1tLf7tF6XeRWBfXX37fuDhuMQKEU9TeUs&sz=w1000-h1000" alt="Planet 1" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Planet Preneurs</h3><span class="gallery-category">Planet</span></div></div>
+        <div class="gallery-item" data-category="planet"><img src="https://drive.google.com/thumbnail?id=1AU9YED7jUJfPlJyWmqctX2HE8XfyA8_Z&sz=w1000-h1000" alt="Planet 2" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Planet Preneurs</h3><span class="gallery-category">Planet</span></div></div>
+        <div class="gallery-item" data-category="planet"><img src="https://drive.google.com/thumbnail?id=1OtvbX7nNY3XAnrHwIRxZDEpKv9SBwq0f&sz=w1000-h1000" alt="Planet 3" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Planet Preneurs</h3><span class="gallery-category">Planet</span></div></div>
+        <div class="gallery-item" data-category="planet"><img src="https://drive.google.com/thumbnail?id=1-Jj3PRh9WDIhhNYAHbWjlY7E5njqlg0Q&sz=w1000-h1000" alt="Planet 4" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Planet Preneurs</h3><span class="gallery-category">Planet</span></div></div>
+        <div class="gallery-item" data-category="planet"><img src="https://drive.google.com/thumbnail?id=1uMM5VhMpBAdUSRNJqLo3ALT8qB7mM8Wu&sz=w1000-h1000" alt="Planet 5" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Planet Preneurs</h3><span class="gallery-category">Planet</span></div></div>
+        <div class="gallery-item" data-category="planet"><img src="https://drive.google.com/thumbnail?id=10JhbWnVXPPJAD1BPkVcZBXhRG-PFCIbR&sz=w1000-h1000" alt="Planet 6" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Planet Preneurs</h3><span class="gallery-category">Planet</span></div></div>
+        <div class="gallery-item" data-category="planet"><img src="https://drive.google.com/thumbnail?id=1uZjLg5qjrOeg6GS6mdJ9wHOkPRYD8jBC&sz=w1000-h1000" alt="Planet 7" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Planet Preneurs</h3><span class="gallery-category">Planet</span></div></div>
 
-        <!-- Community -->
-        <div class="gallery-item" data-category="community">
-          <img src="https://images.unsplash.com/photo-1582211872176-87db9c7d6d3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Community Meeting" class="gallery-img">
-          <div class="gallery-overlay">
-            <h3 class="gallery-title">Community Meeting</h3>
-            <span class="gallery-category">Community</span>
-          </div>
-        </div>
+        <!-- Re-Road (3 images) -->
+        <div class="gallery-item" data-category="road"><img src="https://drive.google.com/thumbnail?id=1ZGDiPCGB-EP37kDvYAFS4TzoxOgKWpVC&sz=w1000-h1000" alt="Re-Road 1" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">ReRoad Bengaluru</h3><span class="gallery-category">Re-Road</span></div></div>
+        <div class="gallery-item" data-category="road"><img src="https://drive.google.com/thumbnail?id=1IK9E1Pa54HE5nNyJLYxpccYjMpTJfK7E&sz=w1000-h1000" alt="Re-Road 2" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Re-Road Bengaluru</h3><span class="gallery-category">Re-Road</span></div></div>
+        <div class="gallery-item" data-category="road"><img src="https://drive.google.com/thumbnail?id=1A_dHyFOeAsj0QMvce_6sAF-Y3VFviU5i&sz=w1000-h1000" alt="Re-Road 3" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Re-Road Bengaluru</h3><span class="gallery-category">Re-Road</span></div></div>
 
-        <!-- Events -->
-        <div class="gallery-item" data-category="events">
-          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fundraising Event" class="gallery-img">
-          <div class="gallery-overlay">
-            <h3 class="gallery-title">Fundraising Event</h3>
-            <span class="gallery-category">Events</span>
-          </div>
-        </div>
+        <!-- Seeds of Service (13 images) -->
+        <div class="gallery-item" data-category="seeds"><img src="https://drive.google.com/thumbnail?id=1vqzlZu7Y7jhyYn7M2WOT4l82mlSNFd3X&sz=w1000-h1000" alt="Seeds 1" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Seeds of Service - A Stationery distribution drive</h3><span class="gallery-category">Seeds of Service</span></div></div>
+        <div class="gallery-item" data-category="seeds"><img src="https://drive.google.com/thumbnail?id=1OIEWz94-tMXv_UYIymWyeSjTzzoAtkGt&sz=w1000-h1000" alt="Seeds 2" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Seeds of Service - A Stationery distribution drive</h3><span class="gallery-category">Seeds of Service</span></div></div>
+        <div class="gallery-item" data-category="seeds"><img src="https://drive.google.com/thumbnail?id=1fNj2X9q_Dj2aHeaz8jrzsyz2UYxCEyRu&sz=w1000-h1000" alt="Seeds 3" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Seeds of Service - A Stationery distribution drive</h3><span class="gallery-category">Seeds of Service</span></div></div>
+        <div class="gallery-item" data-category="seeds"><img src="https://drive.google.com/thumbnail?id=1CFJzfXVRXzUSgNJSxy0NieGGAsDZ5kyK&sz=w1000-h1000" alt="Seeds 4" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Seeds of Service - A Stationery distribution drive</h3><span class="gallery-category">Seeds of Service</span></div></div>
+        <div class="gallery-item" data-category="seeds"><img src="https://drive.google.com/thumbnail?id=1JVo-emc1Gx8iCx4c4ed-My8clfhI4Q5k&sz=w1000-h1000" alt="Seeds 5" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Seeds of Service - A Stationery distribution drive</h3><span class="gallery-category">Seeds of Service</span></div></div>
+        <div class="gallery-item" data-category="seeds"><img src="https://drive.google.com/thumbnail?id=1MS7zgod8NE3I52FUTIDqiEY9WFKdEPXS&sz=w1000-h1000" alt="Seeds 6" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Seeds of Service - A Stationery distribution drive</h3><span class="gallery-category">Seeds of Service</span></div></div>
+        <div class="gallery-item" data-category="seeds"><img src="https://drive.google.com/thumbnail?id=1RjhD46KzqGu1rBQuPGEAAhw698-AxI-d&sz=w1000-h1000" alt="Seeds 7" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Seeds of Service - A Stationery distribution drive</h3><span class="gallery-category">Seeds of Service</span></div></div>
+        <div class="gallery-item" data-category="seeds"><img src="https://drive.google.com/thumbnail?id=1xriGc3HYTlxrjt71hu0Bhi3hktY8_Trk&sz=w1000-h1000" alt="Seeds 8" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Seeds of Service - A Stationery distribution drive</h3><span class="gallery-category">Seeds of Service</span></div></div>
+        <div class="gallery-item" data-category="seeds"><img src="https://drive.google.com/thumbnail?id=1p-s2wZHnASFQtIsNhyy4skosyRONYG97&sz=w1000-h1000" alt="Seeds 9" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Seeds of Service - A Stationery distribution drive</h3><span class="gallery-category">Seeds of Service</span></div></div>
+        <div class="gallery-item" data-category="seeds"><img src="https://drive.google.com/thumbnail?id=1ZUM-jUqp6JPDzufABpxV91SI0Yd9V6wq&sz=w1000-h1000" alt="Seeds 10" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Seeds of Service - A Stationery distribution drive</h3><span class="gallery-category">Seeds of Service</span></div></div>
+        <div class="gallery-item" data-category="seeds"><img src="https://drive.google.com/thumbnail?id=1FN70I1qhDb1K0w7LK8K0ZRmwib3uF7YO&sz=w1000-h1000" alt="Seeds 11" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Seeds of Service - A Stationery distribution drive</h3><span class="gallery-category">Seeds of Service</span></div></div>
+        <div class="gallery-item" data-category="seeds"><img src="https://drive.google.com/thumbnail?id=1Njf3a8KMXXw8pJsATJOxoj-_VI_zx-8v&sz=w1000-h1000" alt="Seeds 12" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Seeds of Service - A Stationery distribution drive</h3><span class="gallery-category">Seeds of Service</span></div></div>
+        <div class="gallery-item" data-category="seeds"><img src="https://drive.google.com/thumbnail?id=1F7y39ZmfO8hFdab5Rb1JZU6LhSEAjUKn&sz=w1000-h1000" alt="Seeds 13" class="gallery-img"><div class="gallery-overlay"><h3 class="gallery-title">Seeds of Service - A Stationery distribution drive</h3><span class="gallery-category">Seeds of Service</span></div></div>
 
-        <!-- Education -->
-        <div class="gallery-item" data-category="education">
-          <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="School Supplies Distribution" class="gallery-img">
-          <div class="gallery-overlay">
-            <h3 class="gallery-title">School Supplies Distribution</h3>
-            <span class="gallery-category">Education</span>
-          </div>
-        </div>
-
-        <!-- Healthcare -->
-        <div class="gallery-item" data-category="healthcare">
-          <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Health Awareness" class="gallery-img">
-          <div class="gallery-overlay">
-            <h3 class="gallery-title">Health Awareness Session</h3>
-            <span class="gallery-category">Healthcare</span>
-          </div>
-        </div>
-
-        <!-- Environment -->
-        <div class="gallery-item" data-category="environment">
-          <img src="https://images.unsplash.com/photo-1616604744535-5b19e63baf12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cleanliness Drive" class="gallery-img">
-          <div class="gallery-overlay">
-            <h3 class="gallery-title">Cleanliness Drive</h3>
-            <span class="gallery-category">Environment</span>
-          </div>
-        </div>
       </div>
-
-      <!-- <div class="gallery-cta">
-        <a href="#volunteer" class="btn btn-primary">
-          <i class="fas fa-camera"></i> Share Your Photos
-        </a>
-      </div> -->
     </div>
   </section>
 
-  <!-- Gallery Modal -->
+  <!-- Modal -->
   <div class="gallery-modal">
     <div class="modal-content">
       <span class="modal-close"><i class="fas fa-times"></i></span>
@@ -369,7 +172,7 @@
   </div>
 
   <!-- Footer -->
-  <footer>
+    <footer>
     <div class="container">
       <div class="footer-content">
         <div class="footer-col">
@@ -423,73 +226,36 @@
     </div>
   </footer>
 
+
   <script>
-    // Gallery Filter Functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      const filterButtons = document.querySelectorAll('.filter-btn');
-      const galleryItems = document.querySelectorAll('.gallery-item');
-      
-      // Filter gallery items
-      filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          // Remove active class from all buttons
-          filterButtons.forEach(btn => btn.classList.remove('active'));
-          
-          // Add active class to clicked button
-          button.classList.add('active');
-          
-          const filterValue = button.getAttribute('data-filter');
-          
-          galleryItems.forEach(item => {
-            if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-              item.style.display = 'block';
-            } else {
-              item.style.display = 'none';
-            }
-          });
-        });
-      });
-      
-      // Modal functionality
-      const modal = document.querySelector('.gallery-modal');
-      const modalImg = document.querySelector('.modal-img');
-      const modalTitle = document.querySelector('.modal-title');
-      const modalDescription = document.querySelector('.modal-description');
-      const closeModal = document.querySelector('.modal-close');
-      
-      // Open modal when gallery item is clicked
-      galleryItems.forEach(item => {
-        item.addEventListener('click', () => {
-          const imgSrc = item.querySelector('.gallery-img').src;
-          const title = item.querySelector('.gallery-title').textContent;
-          const category = item.querySelector('.gallery-category').textContent;
-          
-          modalImg.src = imgSrc;
-          modalTitle.textContent = title;
-          modalDescription.textContent = `Category: ${category}`;
-          
-          modal.classList.add('active');
-          document.body.style.overflow = 'hidden';
-        });
-      });
-      
-      // Close modal
-      closeModal.addEventListener('click', () => {
-        modal.classList.remove('active');
-        document.body.style.overflow = 'auto';
-      });
-      
-      // Close modal when clicking outside
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          modal.classList.remove('active');
-          document.body.style.overflow = 'auto';
-        }
+  // Filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.gallery-item');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      items.forEach(item => {
+        item.style.display = (filter === 'all' || item.dataset.category === filter) ? 'block' : 'none';
       });
     });
-  </script>
-  <script src="assets/js/main.js"></script>
+  });
 
-</body>
+  // Modal
+  const modal = document.querySelector('.gallery-modal');
+  const modalImg = document.querySelector('.modal-img');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  galleryItems.forEach(item => {
+    item.addEventListener('click', () => {
+      modal.classList.add('active');
+      modalImg.src = item.querySelector('img').src;
+    });
+  });
+  document.querySelector('.modal-close').addEventListener('click', () => {
+    modal.classList.remove('active');
+  });
+</script>
+  </body>
+  </html>
 
-</html>
