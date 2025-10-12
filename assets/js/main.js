@@ -147,3 +147,24 @@ if (filterBtns.length > 0 && projects.length > 0) {
         }
       });
     });
+
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxYz.../exec'; // <-- replace with your Apps Script URL
+  
+  function submitForm(type, fields) {
+    const data = { type };
+  
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) data[id.replace(/-.*/, '')] = el.value;
+    });
+  
+    fetch(scriptURL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(() => {
+      alert("✅ Your response has been recorded successfully!");
+      fields.forEach(id => document.getElementById(id).value = '');
+    }).catch(err => alert("❌ Submission failed: " + err));
+  }
