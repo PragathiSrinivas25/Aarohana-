@@ -707,8 +707,56 @@
   </div>
 
   <script>
+
+    function doPost(e) {
+  // Set CORS headers
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Content-Type': 'application/json'
+  };
+
+  try {
+    const sheet = SpreadsheetApp.openById('YOUR_SHEET_ID').getActiveSheet();
+    const data = JSON.parse(e.postData.contents);
+    
+    const row = [
+      data.timestamp,
+      data.type,
+      data.name || data['intern-name'] || data['member-name'] || data['sub-name'] || data['contact-person'],
+      data.email || data['intern-email'] || data['member-email'] || data['partner-email'] || data['sub-email'],
+      data.company || data['intern-interest'] || data['member-type'] || data['interest-area'] || 'Newsletter',
+      JSON.stringify(data)
+    ];
+    
+    sheet.appendRow(row);
+    
+    return ContentService.createTextOutput(JSON.stringify({result: 'success'}))
+      .setMimetype(ContentService.MimeType.JSON)
+      .setHeaders(headers);
+      
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({result: 'error', message: error.toString()}))
+      .setMimetype(ContentService.MimeType.JSON)
+      .setHeaders(headers);
+  }
+}
+
+// Add this function to handle preflight OPTIONS requests
+function doOptions() {
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type'
+  };
+  
+  return ContentService.createTextOutput()
+    .setMimetype(ContentService.MimeType.JSON)
+    .setHeaders(headers);
+}
     // Google Apps Script Web App URL - Replace with your own URL
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkpcKFpOT-orLRZC8YhgOBJyILm6nfWqD_TNcN0tRAPs_DIDqckkELygfyJI6ZMRqmew/exec';
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby7fbC1hHc5tdWCpm4SLle94G-Cs2uQt9k9ijiIbW3pSTOQ5K5FhoL2VCkLqvNSVdw_Eg/exec';
 
     // Modal functions
     function openModal(type) {
