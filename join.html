@@ -717,120 +717,179 @@
   </div>
 
 
-<script>
-  // Google Apps Script Web App URL
-  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby7Z8Jx8QmTruTQ8iD6n7FwR5vEK-Rjx_UiNZzMjVAmSbXPmt7milEwGGlgAWdxuGTQow/exec';
-  const originalButtonTexts = new Map();
+  <script>
+    // Google Apps Script Web App URL
+    
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby7Z8Jx8QmTruTQ8iD6n7FwR5vEK-Rjx_UiNZzMjVAmSbXPmt7milEwGGlgAWdxuGTQow/exec';
+    const originalButtonTexts = new Map();
 
-  // ---------- Modal Functions ----------
-  function openModal(type) {
-    document.getElementById(`${type}-modal`).style.display = 'block';
-    document.body.classList.add('modal-open');
-  }
+    // Modal functions
+    function openModal(type) {
+      document.getElementById(`${type}-modal`).style.display = 'block';
+      document.body.classList.add('modal-open');
+    }
 
-  function closeModal(type) {
-    document.getElementById(`${type}-modal`).style.display = 'none';
-    document.body.classList.remove('modal-open');
-  }
+    function closeModal(type) {
+      document.getElementById(`${type}-modal`).style.display = 'none';
+      document.body.classList.remove('modal-open');
+    }
 
-  // Close modal when clicking outside
-  window.addEventListener('click', (event) => {
-    document.querySelectorAll('.modal').forEach(modal => {
-      if (event.target === modal) {
-        modal.style.display = 'none';
-        document.body.classList.remove('modal-open');
-      }
-    });
+    // Close modal when clicking outside
+    window.onclick = function (event) {
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+          document.body.classList.remove('modal-open');
+        }
+      });
+    }
+
+    // Show success message
+    function showSuccessMessage() {
+      document.getElementById('success-message').style.display = 'flex';
+      document.body.classList.add('modal-open');
+    }
+
+    // Close success message
+    function closeSuccessMessage() {
+      document.getElementById('success-message').style.display = 'none';
+      document.body.classList.remove('modal-open');
+    }
+
+  async function submitForm(formType, fieldIds) {
+  // Get form data
+  const formData = {
+    type: formType,
+    timestamp: new Date().toISOString()
+  };
+
+  // Add form fields to data
+  fieldIds.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) {
+      formData[id] = element.value;
+      // Also add a simplified version for common fields
+      if (id.includes('name')) formData.name = element.value;
+      if (id.includes('email')) formData.email = element.value;
+    }
   });
 
-  // ---------- Success Message ----------
-  function showSuccessMessage() {
-    document.getElementById('success-message').style.display = 'flex';
-    document.body.classList.add('modal-open');
-  }
+  console.log('📤 Submitting form data:', formData);
 
-  function closeSuccessMessage() {
-    document.getElementById('success-message').style.display = 'none';
-    document.body.classList.remove('modal-open');
-  }
-
-  // ---------- Helper to push data via GET ----------
-  async function sendData(formData) {
-    const params = new URLSearchParams(formData).toString();
-    const response = await fetch(`${GOOGLE_SCRIPT_URL}?${params}`);
-    return response.json();
-  }
-
-  // ---------- Form Submission ----------
-  async function submitForm(formType, fieldIds) {
-    const formData = { type: formType, timestamp: new Date().toISOString() };
-
-    // Collect field values
-    fieldIds.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        formData[id] = el.value;
-        if (id.includes('name')) formData.name = el.value;
-        if (id.includes('email')) formData.email = el.value;
-      }
-    });
-
+  try {
+    // Show loading state
     const submitButton = document.querySelector(`#${formType.toLowerCase()}-modal form button`);
-    if (!originalButtonTexts.has(submitButton)) originalButtonTexts.set(submitButton, submitButton.innerHTML);
 
+    // Store original text if not already stored
+    if (!originalButtonTexts.has(submitButton)) {
+      originalButtonTexts.set(submitButton, submitButton.innerHTML);
+    }
+
+    const originalText = originalButtonTexts.get(submitButton);
     submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
     submitButton.disabled = true;
 
-    try {
-      const result = await sendData(formData);
-      if (result.result === 'success') {
-        showSuccessMessage();
-        closeModal(formType.toLowerCase());
-        // Reset fields
-        fieldIds.forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
-      } else {
-        throw new Error(result.message || 'Unknown error');
-      }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      alert('Error submitting form: ' + error.message);
-    } finally {
+    // ✅ REMOVE mode: 'no-cors' and use proper headers
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    });
+
+    console.log('📨 Response status:', response.status);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log('✅ Server response:', result);
+
+    if (result.result === 'success') {
+      showSuccessMessage();
+      closeModal(formType.toLowerCase());
+
+      // Reset form
+      fieldIds.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) element.value = '';
+      });
+    } else {
+      throw new Error(result.message || 'Unknown server error');
+    }
+
+  } catch (error) {
+    console.error('❌ Error submitting form:', error);
+    alert('Sorry, there was an error submitting your form: ' + error.message);
+  } finally {
+    // Reset button state
+    const submitButton = document.querySelector(`#${formType.toLowerCase()}-modal form button`);
+    if (submitButton && originalButtonTexts.has(submitButton)) {
       submitButton.innerHTML = originalButtonTexts.get(submitButton);
       submitButton.disabled = false;
     }
   }
+}
+    // Submit newsletter from footer
+    async function submitNewsletter() {
+      const email = document.getElementById('footer-email').value;
 
-  // ---------- Newsletter Submission ----------
-  async function submitNewsletter() {
-    const email = document.getElementById('footer-email').value.trim();
-    if (!email) return alert('Please enter your email address');
-
-    const formData = { type: 'Newsletter', timestamp: new Date().toISOString(), email };
-    const submitButton = document.querySelector('.footer-newsletter .btn');
-    if (!originalButtonTexts.has(submitButton)) originalButtonTexts.set(submitButton, submitButton.innerHTML);
-
-    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-    submitButton.disabled = true;
-
-    try {
-      const result = await sendData(formData);
-      if (result.result === 'success') {
-        showSuccessMessage();
-        document.getElementById('footer-email').value = '';
-      } else {
-        throw new Error(result.message || 'Unknown error');
+      if (!email) {
+        alert('Please enter your email address');
+        return;
       }
-    } catch (error) {
-      console.error('Newsletter submission error:', error);
-      alert('Error subscribing: ' + error.message);
-    } finally {
-      submitButton.innerHTML = originalButtonTexts.get(submitButton);
-      submitButton.disabled = false;
+
+      const formData = {
+        type: 'Newsletter',
+        timestamp: new Date().toISOString(),
+        email: email
+      };
+
+      try {
+        const submitButton = document.querySelector('.footer-newsletter .btn');
+
+        // Store original text if not already stored
+        if (!originalButtonTexts.has(submitButton)) {
+          originalButtonTexts.set(submitButton, submitButton.innerHTML);
+        }
+
+        const originalText = originalButtonTexts.get(submitButton);
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        submitButton.disabled = true;
+
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+        console.log('Newsletter response:', result);
+
+        if (result.result === 'success') {
+          showSuccessMessage();
+          document.getElementById('footer-email').value = '';
+        } else {
+          throw new Error(result.message);
+        }
+
+      } catch (error) {
+        console.error('Error subscribing to newsletter:', error);
+        alert('Sorry, there was an error subscribing: ' + error.message);
+      } finally {
+        const submitButton = document.querySelector('.footer-newsletter .btn');
+        if (submitButton && originalButtonTexts.has(submitButton)) {
+          submitButton.innerHTML = originalButtonTexts.get(submitButton);
+          submitButton.disabled = false;
+        }
+      }
     }
-  }
-</script>
-
-
+  </script>
 </body>
 
 </html>
