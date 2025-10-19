@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aarohana Foundation | Registered under Govt. Of Karnataka</title>
+  <title>Aarohana Foundation | Registered under Govt. Of Karnataka</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
   <link rel="stylesheet" href="assets/css/header-footer.css">
-  <link rel="stylesheet" href="assets/css/joinUs.css">l="stylesheet">
+  <link rel="stylesheet" href="assets/css/joinUs.css">
   <style>
     /* Modal Styles - Fixed Positioning */
     .modal {
@@ -94,31 +94,11 @@
       line-height: 1.5;
     }
 
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
-      color: #374151;
-    }
-
-    .form-control {
-      width: 100%;
-      padding: 12px 15px;
-      border: 1px solid #e5e7eb;
-      border-radius: 5px;
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      transition: border-color 0.3s;
-    }
-
-    .form-control:focus {
-      outline: none;
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    .redirect-button {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
     }
 
     /* Success Message Styles */
@@ -516,7 +496,7 @@
     </div>
   </footer>
 
-  <!-- Modals -->
+  <!-- Updated Modals without forms -->
   <div id="internship-modal" class="modal">
     <div class="modal-content">
       <button class="close-modal" onclick="closeModal('internship')">&times;</button>
@@ -550,30 +530,14 @@
         <li>Real-world project experience with measurable social impact</li>
       </ol>
 
-      <form
-        onsubmit="event.preventDefault(); submitForm('Internship', ['intern-name', 'intern-email', 'intern-interest']);">
-        <div class="form-group">
-          <label class="form-label" for="intern-name">Full Name</label>
-          <input type="text" class="form-control" id="intern-name" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="intern-email">Email Address</label>
-          <input type="email" class="form-control" id="intern-email" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="intern-interest">Area of Interest</label>
-          <select class="form-control" id="intern-interest" required>
-            <option value="">Select an area</option>
-            <option value="management">Project Management – Planning and executing social initiatives (Autonomous)
-            </option>
-            <option value="development">Resource Development – Building strategies and content for awareness/outreach
-            </option>
-            <option value="sponsorship">Sponsorship & Partnerships – Engaging with stakeholders to secure support
-            </option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit Application</button>
-      </form>
+      <div class="redirect-button">
+        <button class="btn btn-primary" onclick="redirectToGoogleForm('internship')">
+          <i class="fas fa-external-link-alt"></i> Open Application Form
+        </button>
+        <p style="margin-top: 15px; color: #666; font-size: 0.9rem;">
+          You'll be redirected to our Google Form to complete your application.
+        </p>
+      </div>
     </div>
   </div>
 
@@ -600,29 +564,14 @@
         <li><strong>Lifelong Network</strong> of changemakers</li>
       </ul>
 
-      <form
-        onsubmit="event.preventDefault(); submitForm('Membership', ['member-name', 'member-email', 'member-type']);">
-        <div class="form-group">
-          <label class="form-label" for="member-name">Full Name</label>
-          <input type="text" class="form-control" id="member-name" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="member-email">Email Address</label>
-          <input type="email" class="form-control" id="member-email" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="member-type">Departments You Can Join</label>
-          <select class="form-control" id="member-type" required>
-            <option value="">Select membership type</option>
-            <option value="hr">Human Resources – Recruitment, engagement, and member welfare</option>
-            <option value="digital">Digital Media – Content creation, social media management, and design</option>
-            <option value="pr">Public Relations (PR) – Outreach, branding, and communications</option>
-            <option value="logistics">Logistics – On-ground execution, event support, and coordination</option>
-            <option value="finance">Finance & Sponsorship – Budgeting, fundraising, and partnerships</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Become a Member</button>
-      </form>
+      <div class="redirect-button">
+        <button class="btn btn-primary" onclick="redirectToGoogleForm('membership')">
+          <i class="fas fa-external-link-alt"></i> Open Membership Form
+        </button>
+        <p style="margin-top: 15px; color: #666; font-size: 0.9rem;">
+          You'll be redirected to our Google Form to complete your membership application.
+        </p>
+      </div>
     </div>
   </div>
 
@@ -631,8 +580,7 @@
       <button class="close-modal" onclick="closeModal('partnership')">&times;</button>
       <h2 class="modal-title">Brand Partnership</h2>
       <p>Partner with Aarohana Foundation to align your brand with meaningful social impact. We offer various
-        partnership
-        opportunities that can be customized to meet your organization's CSR objectives.</p>
+        partnership opportunities that can be customized to meet your organization's CSR objectives.</p>
 
       <h3>Partnership Benefits</h3>
       <ul>
@@ -653,26 +601,14 @@
         <li><strong>In-kind Support:</strong> Donate products, services, or expertise</li>
       </ul>
 
-      <form
-        onsubmit="event.preventDefault(); submitForm('Partnership', ['company', 'contact-person', 'partner-email', 'interest-area']);">
-        <div class="form-group">
-          <label class="form-label" for="company">Company/Organization Name</label>
-          <input type="text" class="form-control" id="company" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="contact-person">Contact Person</label>
-          <input type="text" class="form-control" id="contact-person" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="partner-email">Email Address</label>
-          <input type="email" class="form-control" id="partner-email" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="interest-area">Area of Interest</label>
-          <textarea class="form-control" id="interest-area" rows="4" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Request Partnership Info</button>
-      </form>
+      <div class="redirect-button">
+        <button class="btn btn-primary" onclick="redirectToGoogleForm('partnership')">
+          <i class="fas fa-external-link-alt"></i> Open Partnership Form
+        </button>
+        <p style="margin-top: 15px; color: #666; font-size: 0.9rem;">
+          You'll be redirected to our Google Form to express your partnership interest.
+        </p>
+      </div>
     </div>
   </div>
 
@@ -692,17 +628,14 @@
         <li>Ways to get involved and support our mission</li>
       </ul>
 
-      <form onsubmit="event.preventDefault(); submitForm('Newsletter', ['sub-name', 'sub-email']);">
-        <div class="form-group">
-          <label class="form-label" for="sub-name">Full Name</label>
-          <input type="text" class="form-control" id="sub-name" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="sub-email">Email Address</label>
-          <input type="email" class="form-control" id="sub-email" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Subscribe Now</button>
-      </form>
+      <div class="redirect-button">
+        <button class="btn btn-primary" onclick="redirectToGoogleForm('newsletter')">
+          <i class="fas fa-external-link-alt"></i> Open Subscription Form
+        </button>
+        <p style="margin-top: 15px; color: #666; font-size: 0.9rem;">
+          You'll be redirected to our Google Form to subscribe to our newsletter.
+        </p>
+      </div>
     </div>
   </div>
 
@@ -716,12 +649,36 @@
     </div>
   </div>
 
-
   <script>
-    // Google Apps Script Web App URL
-    
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby7Z8Jx8QmTruTQ8iD6n7FwR5vEK-Rjx_UiNZzMjVAmSbXPmt7milEwGGlgAWdxuGTQow/exec';
-    const originalButtonTexts = new Map();
+    // Google Form URLs - ADD YOUR FORM URLs HERE
+    const GOOGLE_FORMS = {
+      internship: 'https://docs.google.com/forms/d/e/1FAIpQLSffb3Oe_e6T-LbpF0FLEoS-I9p-YmCsIUrHtfdqnmO1zhUJvA/viewform',
+      membership: 'https://docs.google.com/forms/d/e/1FAIpQLSenSoWuVqc1ajGMOFiwyT3mF4PiQTxKvQAJ3F558kJ-nGYk7Q/viewform?usp=header',
+      partnership: 'https://docs.google.com/forms/d/e/1FAIpQLSfIgG7diAVAr8HFgLS8maH_DIzRS1qnchFLiX593SBel4yNWw/viewform?usp=header',
+      newsletter: 'https://docs.google.com/forms/d/e/1FAIpQLScecQgpdBBJGi7OHSYaYrYrOZ-4qvuOz-mAslC2rEgL27_XEA/viewform?usp=header'
+    };
+
+    // Simple redirect function
+    function redirectToGoogleForm(formType) {
+      const formUrl = GOOGLE_FORMS[formType];
+      if (formUrl && formUrl.includes('YOUR_')) {
+        alert('Form link not configured yet. Please contact us directly.');
+        return;
+      }
+      
+      if (formUrl) {
+        // Close modal first
+        closeModal(formType);
+        
+        // Open form in new tab
+        window.open(formUrl, '_blank');
+        
+        // Show success message
+        showSuccessMessage();
+      } else {
+        alert('Form link not found. Please contact us directly.');
+      }
+    }
 
     // Modal functions
     function openModal(type) {
@@ -757,139 +714,19 @@
       document.body.classList.remove('modal-open');
     }
 
-  async function submitForm(formType, fieldIds) {
-  // Get form data
-  const formData = {
-    type: formType,
-    timestamp: new Date().toISOString()
-  };
-
-  // Add form fields to data
-  fieldIds.forEach(id => {
-    const element = document.getElementById(id);
-    if (element) {
-      formData[id] = element.value;
-      // Also add a simplified version for common fields
-      if (id.includes('name')) formData.name = element.value;
-      if (id.includes('email')) formData.email = element.value;
-    }
-  });
-
-  console.log('📤 Submitting form data:', formData);
-
-  try {
-    // Show loading state
-    const submitButton = document.querySelector(`#${formType.toLowerCase()}-modal form button`);
-
-    // Store original text if not already stored
-    if (!originalButtonTexts.has(submitButton)) {
-      originalButtonTexts.set(submitButton, submitButton.innerHTML);
-    }
-
-    const originalText = originalButtonTexts.get(submitButton);
-    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-    submitButton.disabled = true;
-
-    // ✅ REMOVE mode: 'no-cors' and use proper headers
-    const response = await fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData)
-    });
-
-    console.log('📨 Response status:', response.status);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const result = await response.json();
-    console.log('✅ Server response:', result);
-
-    if (result.result === 'success') {
-      showSuccessMessage();
-      closeModal(formType.toLowerCase());
-
-      // Reset form
-      fieldIds.forEach(id => {
-        const element = document.getElementById(id);
-        if (element) element.value = '';
-      });
-    } else {
-      throw new Error(result.message || 'Unknown server error');
-    }
-
-  } catch (error) {
-    console.error('❌ Error submitting form:', error);
-    alert('Sorry, there was an error submitting your form: ' + error.message);
-  } finally {
-    // Reset button state
-    const submitButton = document.querySelector(`#${formType.toLowerCase()}-modal form button`);
-    if (submitButton && originalButtonTexts.has(submitButton)) {
-      submitButton.innerHTML = originalButtonTexts.get(submitButton);
-      submitButton.disabled = false;
-    }
-  }
-}
-    // Submit newsletter from footer
-    async function submitNewsletter() {
+    // Simple footer newsletter (you can keep this or redirect to form)
+    function submitNewsletter() {
       const email = document.getElementById('footer-email').value;
-
+      
       if (!email) {
         alert('Please enter your email address');
         return;
       }
-
-      const formData = {
-        type: 'Newsletter',
-        timestamp: new Date().toISOString(),
-        email: email
-      };
-
-      try {
-        const submitButton = document.querySelector('.footer-newsletter .btn');
-
-        // Store original text if not already stored
-        if (!originalButtonTexts.has(submitButton)) {
-          originalButtonTexts.set(submitButton, submitButton.innerHTML);
-        }
-
-        const originalText = originalButtonTexts.get(submitButton);
-        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-        submitButton.disabled = true;
-
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData)
-        });
-
-        const result = await response.json();
-        console.log('Newsletter response:', result);
-
-        if (result.result === 'success') {
-          showSuccessMessage();
-          document.getElementById('footer-email').value = '';
-        } else {
-          throw new Error(result.message);
-        }
-
-      } catch (error) {
-        console.error('Error subscribing to newsletter:', error);
-        alert('Sorry, there was an error subscribing: ' + error.message);
-      } finally {
-        const submitButton = document.querySelector('.footer-newsletter .btn');
-        if (submitButton && originalButtonTexts.has(submitButton)) {
-          submitButton.innerHTML = originalButtonTexts.get(submitButton);
-          submitButton.disabled = false;
-        }
-      }
+      
+      // For now, just show success message
+      document.getElementById('footer-email').value = '';
+      showSuccessMessage();
     }
   </script>
 </body>
-
 </html>
