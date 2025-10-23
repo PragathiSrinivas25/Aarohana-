@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donate | Aarohana Foundation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    body {
+      background: #f7f9fc;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .donate-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 20px;
+    }
+
+    .donate-container {
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 350px;
+    }
+
+    .donate-container h1 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .donate-container p {
+      color: #555;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .amount-options {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .amount-btn {
+      background: #e8f0ff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #3366cc;
+    }
+
+    .amount-btn:hover {
+      background: #3366cc;
+      color: #fff;
+    }
+
+    input[type="number"] {
+      width: 90%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    #donate-button {
+      background: #528FF0;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    #donate-button:hover {
+      background: #3c6fdd;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <img src="assets/images/logo/Aarohana logo.png" alt="Aarohana Logo" style="width: 93px; margin-right: 10px;">
+        </div>
+        <div class="logo-text">
+          <h1>Aarohana Foundation</h1>
+          <span>Registered under Government Of Karnataka</span>
+        </div>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li class="dropdown">
+            <a href="about.html" class="dropdown-toggle">About Us <i class="fas fa-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="about.html#vision-mission">Vision</a></li>
+              <li><a href="about.html#vision-mission">Mission</a></li>
+              <li><a href="about.html#registration">Registration Details</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="team.html" class="dropdown-toggle">Our Team <i class="fas fa-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="team.html#executive">Executive Committee</a></li>
+              <li><a href="team.html#members">Our Members</a></li>
+            </ul>
+          </li>
+          <li><a href="project.html">Projects</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact us</a></li>
+          <li><a href="join.html">Join Us</a></li>
+          <li><a href="donate.html" class="nav-cta">Donate Now</a></li>
+        </ul>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Donate Section -->
+  <section class="donate-section">
+    <div class="donate-container">
+      <h1>Support Our Cause</h1>
+      <p>Choose an amount or enter your own to make a donation.</p>
+
+      <div class="amount-options">
+        <button class="amount-btn" onclick="setAmount(100)">₹100</button>
+        <button class="amount-btn" onclick="setAmount(500)">₹500</button>
+        <button class="amount-btn" onclick="setAmount(1000)">₹1000</button>
+      </div>
+
+      <input type="number" id="amount" placeholder="Enter custom amount (₹)">
+      <button id="donate-button">Donate Now</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h4>About Aarohana</h4>
+          <p>A youth-led organization dedicated to delivering charitable support across
+            our community with compassion and impact.</p>
+          <p>Registered under the Karnataka Societies Registration Act, 1960</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="team.html">Our Team</a></li>
+            <li><a href="project.html">Projects</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact us</a></li>
+            <li><a href="join.html">Join us</a></li>
+            <li><a href="donate.html">Donate Now</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Our Initiatives</h4>
+          <ul class="footer-links">
+            <li><a href="#">Education for Underprivileged</a></li>
+            <li><a href="#">Emergency Medical Funding</a></li>
+            <li><a href="#">Disaster Relief & Response</a></li>
+            <li><a href="#">Environmental Initiatives</a></li>
+            <li><a href="#">Civic Engagement Projects</a></li>
+            <li><a href="#">The Bengaluru Pothole Project</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col footer-newsletter">
+          <h4>Newsletter</h4>
+          <p>Subscribe to our newsletter to stay updated with our impact stories.</p>
+          <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Your Email" required>
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="copyright">
+      <div class="container">
+        <p>&copy; 2025 Aarohana Foundation. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function setAmount(value) {
+      document.getElementById('amount').value = value;
+    }
+
+    document.getElementById('donate-button').onclick = function (e) {
+      e.preventDefault();
+      var amount = document.getElementById('amount').value;
+
+      if (!amount || amount <= 0) {
+        alert("Please enter a valid donation amount.");
+        return;
+      }
+
+      var options = {
+        "key": "rzp_test_RWzhtORp3gMmeL", // 🔑 Replace with your Razorpay Key ID
+        "amount": amount * 100,
+        "currency": "INR",
+        "name": "Aarohana Foundation",
+        "description": "Donation Support",
+        "image": "assets/images/logo/Aarohana logo.png",
+        "handler": function (response) {
+          alert("Thank you for your donation! Payment ID: " + response.razorpay_payment_id);
+        },
+        "theme": {
+          "color": "#528FF0"
+        }
+      };
+
+      var rzp = new Razorpay(options);
+      rzp.open();
+    }
+  </script>
+</body>
+
+</html>
