@@ -212,7 +212,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function openGoogleForm() {
-  window.open('https://docs.google.com/forms/d/e/1FAIpQLSd0FJdyMFRyx4W597WiBmonL6nijzqnvXKBZ9_U6ygqfG526A/viewform', '_blank');
+  // window.open('https://docs.google.com/forms/d/e/1FAIpQLSd0FJdyMFRyx4W597WiBmonL6nijzqnvXKBZ9_U6ygqfG526A/viewform', '_blank');
+  window.open('https://forms.gle/KGJoR7rwcvGyLoyv9', '_blank');
 }
 
 function openMaps() {
