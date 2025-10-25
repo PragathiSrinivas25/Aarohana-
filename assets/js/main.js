@@ -118,7 +118,6 @@ function closeModal(type) {
   document.getElementById(`${type}-modal`).style.display = 'none';
 }
 
-// Close modal when clicking outside content
 window.onclick = function (event) {
   if (event.target.classList.contains('modal')) {
     event.target.style.display = 'none';
