@@ -217,6 +217,6 @@ function openGoogleForm() {
 
 function openMaps() {
   const address = "No. 122/16, Unit No F-5, Monarch Chambers, Infantry Road, Bengaluru - 560 001";
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+  const mapsUrl = `https://maps.app.goo.gl/n4pAfQHHkeEe1UbY7`;
   window.open(mapsUrl, '_blank');
 }
